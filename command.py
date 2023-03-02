@@ -73,7 +73,7 @@ elif sys.argv[1] == 'likePost':
 	post_id = sys.argv[3]
 
 	cursor.execute("""
-	UPDATE posts
+	UPDATE post
 	SET likes = likes + 1
 	WHERE user_id = ? AND post_id = ?
 	""", (user_id, post_id))
@@ -94,7 +94,7 @@ elif sys.argv[1] == 'makePost':
 	text = sys.argv[3]
 
 	cursor.execute("""
-	INSERT OR REPLACE INTO posts (user_id, text) 
+	INSERT OR REPLACE INTO post (user_id, text) 
 	VALUES (?,?)
 	""", (user_id, text))
 
@@ -114,7 +114,7 @@ elif sys.argv[1] == 'showFollowing':
 
 	cursor.execute("""
 	SELECT count(*)
-	FROM follows JOIN users ON followed_id = user_id
+	FROM follow JOIN user ON followed_id = user_id
 	WHERE follower_id = ?
 	""", id1)
 
@@ -122,7 +122,7 @@ elif sys.argv[1] == 'showFollowing':
 
 	cursor.execute("""
 	SELECT name 
-	FROM follows JOIN users ON followed_id = user_id
+	FROM follow JOIN user ON followed_id = user_id
 	WHERE follower_id = ?
 	""", id1)
 
@@ -142,14 +142,14 @@ elif sys.argv[1] == 'showFollowers':
 
 	cursor.execute("""
 	SELECT count(*)
-	FROM follows JOIN users ON follower_id = user_id
+	FROM follow JOIN user ON follower_id = user_id
 	WHERE followed_id = ?
 	""", id1)
 
 	print(cursor.fetchone()[0])
 	cursor.execute("""
 	SELECT name 
-	FROM follows JOIN users ON follower_id = user_id
+	FROM follow JOIN user ON follower_id = user_id
 	WHERE followed_id = ?
 	""", id1)
 
@@ -169,7 +169,7 @@ elif sys.argv[1] == 'showLikes':
 
 	cursor.execute("""
 	SELECT likes 
-	FROM posts
+	FROM post
 	WHERE post_id = ? 
 	""", (post_id,))
 
@@ -185,11 +185,11 @@ elif sys.argv[1] == 'showPosts':
 	user_id = sys.argv[2]
 
 	cursor.execute("""
-	SELECT users.user_id, users.name, posts.text, posts.time, posts.post_id
-	FROM posts
-	JOIN users ON posts.user_id = users.user_id
-	WHERE users.user_id= ?
-	ORDER BY posts.time DESC
+	SELECT user.user_id, user.name, post.text, post.time, post.post_id
+	FROM post
+	JOIN user ON post.user_id = user.user_id
+	WHERE user.user_id= ?
+	ORDER BY post.time DESC
 	""", (user_id,))
 
 	postList = cursor.fetchall()
@@ -205,7 +205,7 @@ elif sys.argv[1] == 'showUsers':
 	cursor = connection.cursor()
 
 	cursor.execute("""
-	SELECT name FROM users""")
+	SELECT name FROM user""")
 	userList = cursor.fetchall()
 
 	for x in userList:
@@ -223,14 +223,14 @@ elif sys.argv[1] == 'suggest':
 	#For each user 1 who has a common friend 3 with another user 2, suggest user 2 as a friend option. 
 	cursor.execute("""
 	SELECT F1.followed_id
-	FROM follows F1
+	FROM follow F1
 	WHERE (F1.followed_id != ?) AND F1.follower_id IN (
 	SELECT F2.followed_id
-	FROM follows F2
+	FROM follow F2
 	WHERE F2.follower_id =?)
 	AND F1.followed_id NOT IN (
 	SELECT F3.followed_id
-	FROM follows F3
+	FROM follow F3
 	WHERE F3.follower_id=?);
 	""", (id1, id1, id1))
 
