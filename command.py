@@ -18,6 +18,7 @@
 import sqlite3
 import sys
 
+
 if sys.argv[1] == 'checkFeed':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -42,6 +43,9 @@ if sys.argv[1] == 'checkFeed':
 	connection.commit()
 	connection.close()
 
+
+
+
 elif sys.argv[1] == 'createUser': #user email  must be unique
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -63,6 +67,8 @@ elif sys.argv[1] == 'createUser': #user email  must be unique
 	connection.close()
 
 
+
+
 elif sys.argv[1] == 'follow':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -77,6 +83,9 @@ elif sys.argv[1] == 'follow':
 
 	connection.commit()
 	connection.close()
+
+
+
 
 elif sys.argv[1] == 'likePost':
 	connection = sqlite3.connect("Social_Network.db")
@@ -100,6 +109,9 @@ elif sys.argv[1] == 'likePost':
 	connection.commit()
 	connection.close()
 
+
+
+
 elif sys.argv[1] == 'makePost':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -119,6 +131,9 @@ elif sys.argv[1] == 'makePost':
 
 	connection.commit()
 	connection.close()
+
+
+
 
 elif sys.argv[1] == 'showFollowing':
 	connection = sqlite3.connect("Social_Network.db")
@@ -148,6 +163,9 @@ elif sys.argv[1] == 'showFollowing':
 	connection.commit()
 	connection.close()
 
+
+
+
 elif sys.argv[1] == 'showFollowers':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -175,6 +193,9 @@ elif sys.argv[1] == 'showFollowers':
 	connection.commit()
 	connection.close()
 
+
+
+
 elif sys.argv[1] == 'showLikes':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -191,6 +212,9 @@ elif sys.argv[1] == 'showLikes':
 
 	connection.commit()
 	connection.close()
+
+
+
 
 elif sys.argv[1] == 'showPosts':
 	connection = sqlite3.connect("Social_Network.db")
@@ -214,6 +238,8 @@ elif sys.argv[1] == 'showPosts':
 	connection.close()
 
 
+
+
 elif sys.argv[1] == 'showUsers':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
@@ -227,6 +253,8 @@ elif sys.argv[1] == 'showUsers':
 
 	connection.commit()
 	connection.close()
+
+
 
 elif sys.argv[1] == 'suggest':
 	connection = sqlite3.connect("Social_Network.db")
