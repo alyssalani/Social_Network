@@ -51,9 +51,9 @@ elif sys.argv[1] == 'createUser': #user email  must be unique
 	cursor = connection.cursor()
 
 
-	name = sys.argv[2];
-	email = sys.argv[3];
-	color = sys.argv[4];
+	name = sys.argv[2]
+	email = sys.argv[3]
+	color = sys.argv[4]
 
 	try: 
 		cursor.execute("""
@@ -125,7 +125,7 @@ elif sys.argv[1] == 'makePost':
 	""", (user_id, text))
 
 	if cursor.rowcount == 0:
-	   print("Invalid.")
+		print("Invalid.")
 	else:
 		print("Posted successfully.")
 
@@ -139,7 +139,7 @@ elif sys.argv[1] == 'showFollowing':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
 
-	id1 = sys.argv[2];
+	id1 = sys.argv[2]
 
 	cursor.execute("""
 	SELECT count(*)
@@ -170,7 +170,7 @@ elif sys.argv[1] == 'showFollowers':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
 
-	id1 = sys.argv[2];
+	id1 = sys.argv[2]
 
 	cursor.execute("""
 	SELECT count(*)
