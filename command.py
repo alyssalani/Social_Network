@@ -134,4 +134,109 @@ elif sys.argv[1] == 'showFollowing':
 	connection.commit()
 	connection.close()
 
-elif sys.argv[1] == '
+elif sys.argv[1] == 'showFollowers':
+	connection = sqlite3.connect("Social_Network.db")
+	cursor = connection.cursor()
+
+	id1 = sys.argv[2];
+
+	cursor.execute("""
+	SELECT count(*)
+	FROM follows JOIN users ON follower_id = user_id
+	WHERE followed_id = ?
+	""", id1)
+
+	print(cursor.fetchone()[0])
+	cursor.execute("""
+	SELECT name 
+	FROM follows JOIN users ON follower_id = user_id
+	WHERE followed_id = ?
+	""", id1)
+
+	userList = cursor.fetchall()
+
+	for x in userList:
+		print(x[0])
+
+	connection.commit()
+	connection.close()
+
+elif sys.argv[1] == 'showLikes':
+	connection = sqlite3.connect("Social_Network.db")
+	cursor = connection.cursor()
+
+	post_id = sys.argv[2]
+
+	cursor.execute("""
+	SELECT likes 
+	FROM posts
+	WHERE post_id = ? 
+	""", (post_id,))
+
+	print(cursor.fetchone()[0])
+
+	connection.commit()
+	connection.close()
+
+elif sys.argv[1] == 'showPosts':
+	connection = sqlite3.connect("Social_Network.db")
+	cursor = connection.cursor()
+
+	user_id = sys.argv[2]
+
+	cursor.execute("""
+	SELECT users.user_id, users.name, posts.text, posts.time, posts.post_id
+	FROM posts
+	JOIN users ON posts.user_id = users.user_id
+	WHERE users.user_id= ?
+	ORDER BY posts.time DESC
+	""", (user_id,))
+
+	postList = cursor.fetchall()
+	for x in postList:
+		print(x)
+
+	connection.commit()
+	connection.close()
+
+
+elif sys.argv[1] == 'showUsers':
+	connection = sqlite3.connect("Social_Network.db")
+	cursor = connection.cursor()
+
+	cursor.execute("""
+	SELECT name FROM users""")
+	userList = cursor.fetchall()
+
+	for x in userList:
+		print(x[0])
+
+	connection.commit()
+	connection.close()
+
+elif sys.argv[1] == 'suggest':
+	connection = sqlite3.connect("Social_Network.db")
+	cursor = connection.cursor()
+
+	id1 = sys.argv[2]
+
+	#For each user 1 who has a common friend 3 with another user 2, suggest user 2 as a friend option. 
+	cursor.execute("""
+	SELECT F1.followed_id
+	FROM follows F1
+	WHERE (F1.followed_id != ?) AND F1.follower_id IN (
+	SELECT F2.followed_id
+	FROM follows F2
+	WHERE F2.follower_id =?)
+	AND F1.followed_id NOT IN (
+	SELECT F3.followed_id
+	FROM follows F3
+	WHERE F3.follower_id=?);
+	""", (id1, id1, id1))
+
+	userList = cursor.fetchall()
+	for x in userList:
+		print("It is suggested that you follow " + str(x[0]))
+
+	connection.commit()
+	connection.close()
