@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS user (
     user_email      TEXT NOT NULL,
     color           TEXT NOT NULL,
     name            TEXT NOT NULL,
-    follower_count       INTEGER DEFAULT 0
+    follower_count       INTEGER DEFAULT 0,
     UNIQUE(user_email)
 )
 """)
