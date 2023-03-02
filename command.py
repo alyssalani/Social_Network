@@ -1,5 +1,20 @@
 #!/usr/bin/env python3
 
+###Command options:
+#createUser
+#showUsers
+#follow
+#showFollowing
+#showFollowers
+#makePost
+#showPosts
+#showLikes
+#likePost
+#checkFeed
+#suggest
+###
+
+
 import sqlite3
 import sys
 
@@ -13,7 +28,7 @@ if sys.argv[1] == 'checkFeed':
 	SELECT post.text, name
 	FROM follow 
 	JOIN post ON followed_id = post.user_id
-	JOIN user ON posts.user_id = user.user_id
+	JOIN user ON post.user_id = user.user_id
 	WHERE follower_id = ?
 	ORDER BY post.time DESC
 	LIMIT 10;
@@ -52,13 +67,12 @@ elif sys.argv[1] == 'follow':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
 
-
 	follower_id = sys.argv[2]	#alternative could be ids = sys.argv[1:], and use ids for VALUES
 	followed_id = sys.argv[3]
 
 	cursor.execute("""
 	INSERT INTO follow (follower_id,followed_id) VALUES (?,?)
-	""", follower_id, followed_id)
+	""", (follower_id, followed_id))
 
 
 	connection.commit()
@@ -129,7 +143,7 @@ elif sys.argv[1] == 'showFollowing':
 	userList = cursor.fetchall()
 
 	for x in userList:
-	print(x[0])
+		print(x[0])
 
 	connection.commit()
 	connection.close()
