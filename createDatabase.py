@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS post (
     FOREIGN KEY(user_id) REFERENCES user(user_id)
 )
 """)
-
+#follow name needs an alternative name
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS follow (
     follower_id  INTEGER NOT NULL,
