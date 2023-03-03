@@ -112,7 +112,7 @@ elif sys.argv[1] == 'likePost':
 
 
 
-elif sys.argv[1] == 'makePost':
+elif sys.argv[1] == 'createPost':
 	connection = sqlite3.connect("Social_Network.db")
 	cursor = connection.cursor()
 
