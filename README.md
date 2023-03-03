@@ -23,14 +23,24 @@ Command options:
   - suggest
 
 'createUser' takes a name, email, and color and adds the user to the database. All users must have a different email. 
+
 'showUsers' takes no arguments displays a list of all of the names of all users.
+
 'follow' takes two user_ids and adds the first id to the follow table as a follower_id, and adds the second id to the follow table as a followed_id
-'showFollowing'
-'showFollowers'
-'makePost'
-'showPosts'
-'showLikes'
-'likePost'
+
+'showFollowing' takes a user_id and displays the count of and the names of the users that the given id is following. 
+
+'showFollowers' takes a user_id and displays the count of and the names of the users that are following the given id. 
+
+'makePost' takes a user_id and a string, and gives the text a post_id and timestamp and adds it to the database.
+
+'showPosts' takes a user_id and displays all of the user's posts with all of their information. 
+
+'showLikes' takes a post_id and displays the amount of likes the post has. 
+
+'likePost' 
+ 
 'checkFeed'
+
 'suggest'
 
