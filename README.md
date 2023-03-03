@@ -38,9 +38,8 @@ Command options:
 
 'showLikes' takes a post_id and displays the amount of likes the post has. 
 
-'likePost' 
+'likePost' takes the user_id and post_id and adds a like to the post
  
-'checkFeed'
+'checkFeed' takes a user id and checks the 10 most recent posts made by users the given id follows
 
-'suggest'
-
+'suggest' takes a user_id and returns suggested users for the id to follow
