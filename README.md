@@ -3,6 +3,8 @@ Creates and manages a social network database
 
 This program is still under construction, but currently has basic functionality. 
 
+**NOTE: While all commands were created as separate executable files, they have been condensed into one file for readability purposes
+
 This social network is made up of 3 tables. The tables are: user, post, and follow. 
 
 The user table consists of user_id (PRIMARY_KEY), user_email, color, name, and follower_count.
